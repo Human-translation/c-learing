@@ -1,0 +1,71 @@
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        if(head == NULL || head->next == NULL)
+            return 1;
+        ListNode* mid = head;
+        ListNode* HEAD = head;
+        do
+        {
+            HEAD = HEAD->next->next;
+            mid = mid->next;
+        }while(HEAD != NULL && HEAD->next != NULL);
+        HEAD = NULL;
+        ListNode* str = new ListNode(0);
+        ListNode* wei = mid;
+        while(wei != NULL)
+        {
+            wei = wei->next;
+            mid->next = HEAD;
+            HEAD = mid;
+            mid = wei;
+            str->next = HEAD;
+        }
+        mid = str->next;
+        while(mid != NULL)
+        {
+            if(mid->val == head->val)
+            {
+                mid = mid->next;
+                head = head->next;
+            }
+            else
+                return 0;
+        }
+        return 1;
+    }
+};
+
+class Solution {
+public:
+    vector<ListNode*> listOfDepth(TreeNode* tree) {
+        vector<ListNode*> arr;
+        if(!tree) return arr;
+        queue<TreeNode*> Que;
+        Que.push(tree);
+        while(!Que.empty())
+        {
+            ListNode* head = new ListNode(0);
+            ListNode* list = head;
+            int len = Que.size();
+            for(int i=0;i<len;i++)
+            {
+                TreeNode* Tre = Que.front();
+                Que.pop();
+                if(Tre->left)
+                {
+                    Que.push(Tre->left);
+                } 
+                if(Tre->right)
+                {
+                    Que.push(Tre->right);
+                }
+                list->next = new ListNode(Tre->val);
+                list = list->next;
+                list->next = NULL;                
+            }
+            arr.push_back(head->next);
+        }
+        return arr;
+    }
+};
