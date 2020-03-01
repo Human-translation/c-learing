@@ -1,0 +1,84 @@
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+        if(!head || !head->next) return head;
+        ListNode* HEAD = head;
+        ListNode* fast = head->next;
+        ListNode* slow = head;
+        while(fast)
+        {
+            if(fast->val >= x)
+            {
+                slow = slow->next;
+                fast = fast->next;
+            }
+            else
+            {
+                if(slow == HEAD)
+                {
+                    if(slow->val > fast->val)
+                    {
+                        int val = fast->val;
+                        fast->val = slow->val;
+                        slow->val = val;
+                    }
+                    slow = slow->next;
+                    fast = fast->next;
+                    continue;
+                }
+                slow->next = fast->next;
+                if(HEAD->val > fast->val && head ==HEAD)
+                {
+                    fast->next = HEAD;
+                    head = fast;
+                    HEAD = fast;
+                }
+                else
+                {
+                    fast->next = HEAD->next;
+                    HEAD->next = fast;
+                    HEAD = HEAD->next;                                        
+                }
+                fast = slow->next;
+            }
+        }
+        return head;
+    }
+};
+
+
+class MyStack {
+public:
+    /** Initialize your data structure here. */
+    queue<int> que1;
+    queue<int> que2;
+    MyStack() {}
+    
+    void push(int x) {
+        que2.push(x);
+        while(!que1.empty())
+        {
+            que2.push(que1.front());
+            que1.pop();
+        }
+        while(!que2.empty())
+        {
+            que1.push(que2.front());
+            que2.pop();
+        }
+    }
+    
+    int pop() {
+        int num = que1.front();
+        que1.pop();
+        return num;
+    }
+    
+    int top() {
+        return que1.front();
+    }
+    
+    bool empty() {
+        return que1.empty();
+    }
+};
