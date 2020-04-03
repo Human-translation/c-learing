@@ -1,0 +1,4 @@
+﻿  test.cpp
+c:\users\administrator\source\repos\20_4_3\20_4_3\test.cpp(21): warning C4018: “>=”: 有符号/无符号不匹配
+c:\users\administrator\source\repos\20_4_3\20_4_3\test.cpp(28): warning C4018: “<”: 有符号/无符号不匹配
+  20_4_3.vcxproj -> C:\Users\Administrator\source\repos\20_4_3\Debug\20_4_3.exe
