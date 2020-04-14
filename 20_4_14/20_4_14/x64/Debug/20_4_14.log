@@ -1,0 +1,8 @@
+﻿  test.cpp
+c:\users\administrator\source\repos\20_4_14\20_4_14\test.cpp(83): error C2440: “=”: 无法从“int [5][5]”转换为“int (*)[4]”
+  c:\users\administrator\source\repos\20_4_14\20_4_14\test.cpp(83): note: 与指向的类型无关；强制转换要求 reinterpret_cast、C 样式强制转换或函数样式强制转换
+c:\users\administrator\source\repos\20_4_14\20_4_14\test.cpp(84): warning C4477: “printf”: 格式字符串“%p”需要类型“void *”的参数，但可变参数 1 拥有了类型“__int64”
+c:\users\administrator\source\repos\20_4_14\20_4_14\test.cpp(84): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 2 拥有了类型“__int64”
+  c:\users\administrator\source\repos\20_4_14\20_4_14\test.cpp(84): note: 请考虑在格式字符串中使用“%lld”
+  c:\users\administrator\source\repos\20_4_14\20_4_14\test.cpp(84): note: 请考虑在格式字符串中使用“%Id”
+  c:\users\administrator\source\repos\20_4_14\20_4_14\test.cpp(84): note: 请考虑在格式字符串中使用“%I64d”
