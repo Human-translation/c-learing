@@ -13,6 +13,7 @@ public:
 	void scannerDir(const std::string& path);
 	void deleteByName(const std::string& name);
 	void deleteByMD5(const std::string& md5);
+	void deleteByMD5V2(const std::string& md5);
 	void deleteAllCopy();
 	void deleteByMatchName(const std::string& matchName);
 

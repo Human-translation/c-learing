@@ -41,36 +41,122 @@ void FileManager::getMd5toFiles()
 void FileManager::scannerDir(const std::string& path)
 {
 	_files.clear();
-	std::cout << "all file" << std::endl;
+	//std::cout << "all file" << std::endl;
 	searchDir(path, _files);
-	showAllFile();
+	//showAllFile();
 	getMd5toFiles();
-	showCopyList();
+	//showCopyList();
 	getCopyList();
-	std::cout << "copy list" << std::endl;
+	//std::cout << "copy list" << std::endl;
 
-	showCopyList();
-	showAllFile();
+	//showCopyList();
+	//showAllFile();
 }
 
 void FileManager::deleteByName(const std::string& name)
 {
-
+	if (_filestoMd5.count(name) == 0)
+	{
+		std::cout << name << "not exist!" << std::endl;
+		return;
+	}
+	std::string curMD5 = _filestoMd5[name];
+	std::cout << name << "---->" << _md5toFiles.count(curMD5) << std::endl;
+	auto pairIt = _md5toFiles.equal_range(curMD5);
+	auto curIt = pairIt.first;
+	int count = 0;
+	while (curIt != pairIt.second)
+	{
+		if (curIt->second != name)
+		{
+			_files.erase(curIt->second);
+			_filestoMd5.erase(curIt->second);
+			deleteFile(curIt->second.c_str());
+			++count;
+		}
+		++curIt;
+	}
+	curIt = pairIt.first;
+	while (curIt != pairIt.second)
+	{
+		if (curIt->second != name)
+		{
+			_md5toFiles.erase(curIt);
+			pairIt = _md5toFiles.equal_range(curMD5);
+			curIt = pairIt.first;
+		}
+		++curIt;
+	}
+	std::cout << "delete files number :" << count << std::endl;
 }
 
 void FileManager::deleteByMD5(const std::string& md5)
 {
+	if (_md5toFiles.count(md5) == 0)
+	{
+		std::cout << md5 << "not exist!" << std::endl;
+		return;
+	}
+	auto pairIt = _md5toFiles.equal_range(md5);
+	std::cout << md5 << "---->" << _md5toFiles.count(md5) << std::endl;
+	auto curIt = pairIt.first;
+	++curIt;
+	int count = 0;
+	while (curIt != pairIt.second)
+	{
+		_files.erase(curIt->second);
+		_filestoMd5.erase(curIt->second);
+		deleteFile(curIt->second.c_str());
+		++count;
+		++curIt;
+	}
+	curIt = pairIt.first;
+	++curIt;
+	_md5toFiles.erase(curIt, pairIt.second);
+	std::cout<<"delete files number :"<< count << std::endl;
+}
 
+void FileManager::deleteByMD5V2(const std::string& md5)
+{
+	if (_md5toFiles.count(md5) == 0)
+	{
+		std::cout << md5 << "not exist!" << std::endl;
+		return;
+	}
+	auto it = _md5toFiles.find(md5);
+	deleteByName(it->second);
 }
 
 void FileManager::deleteAllCopy()
 {
-
+	std::unordered_set<std::string> md5Set;
+	for (const auto& p : _md5toFiles)
+	{
+		md5Set.insert(p.first);
+	}
+	for (const auto& md5 : md5Set)
+	{
+		deleteByMD5(md5);
+	}
 }
 
 void FileManager::deleteByMatchName(const std::string& matchName)
 {
-
+	std::unordered_set<std::string> allFiles;
+	for (const auto& f : _files)
+	{
+		if (f.find(matchName) != std::string::npos)
+		{
+			allFiles.insert(f);
+		}
+	}
+	for (const auto& f : allFiles)
+	{
+		if (_filestoMd5.count(f) != 0)
+		{
+			deleteByName(f);
+		}
+	}
 }
 
 void FileManager::showCopyList()
