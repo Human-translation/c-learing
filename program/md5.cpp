@@ -131,7 +131,7 @@ std::string MD5::getStringMD5(const std::string& str)
 std::string MD5::getFileMD5(const char* filePath)
 {
 	std::ifstream fin(filePath,std::ifstream::binary);
-	if (fin.is_open())
+	if (!fin.is_open())
 	{
 		std::cout << filePath << std::endl;
 		perror("file open failed!");
