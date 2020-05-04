@@ -1,0 +1,5 @@
+﻿  MD5.cpp
+c:\users\administrator\source\repos\program\program\md5.cpp(76): warning C4309: “=”: 截断常量值
+c:\users\administrator\source\repos\program\program\md5.cpp(117): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\administrator\source\repos\program\program\md5.cpp(145): warning C4244: “=”: 从“std::streamsize”转换到“uint32”，可能丢失数据
+  program.vcxproj -> C:\Users\Administrator\source\repos\program\Debug\program.exe
